@@ -6,5 +6,5 @@ jobs:
     steps:
     - name: push
       with:
-        token: ${{ secrets.4aNw7rvb8F2wcRuHZaoB97bJaIa97GQirUTrdgG8M6B }}
+        token: ${{ secrets.LINE_TOKEN }}
         message: "test"
