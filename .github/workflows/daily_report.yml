@@ -4,8 +4,13 @@ jobs:
   notify_line:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "test"
+    - name: push
       env: 
-        TITLE: "test"
-      secrets: 
-        access-token: ${{ secrets.LINE_TOKEN }}
+          TITLE: "test"
+      run: echo "complete push"
+      
+    - name: send LINE Notify
+      env: 
+        LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
+        URL: https://notify-api.line.me/api/notify
+      run: echo "test"
