@@ -4,7 +4,7 @@ jobs:
   notify_line:
     runs-on: ubuntu-latest
     steps:
-    - name: push
+    - uses: snow-actions/line-notify@v1.0.0
       with:
         token: ${{ secrets.LINE_TOKEN }}
         message: "test"
