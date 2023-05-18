@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: echo "test"
-      with:
-        secrets: 
-          access-token: ${{ secrets.LINE_TOKEN }}
-        message: "test"
+      env: 
+        TITLE: "test"
+      secrets: 
+        access-token: ${{ secrets.LINE_TOKEN }}
