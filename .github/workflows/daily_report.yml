@@ -1,0 +1,10 @@
+name: daily_report
+on: [push]
+jobs:
+  notify_line:
+    runs-on: ubuntu-latest
+    steps:
+    - name: push
+      with:
+        token: ${{ secrets.4aNw7rvb8F2wcRuHZaoB97bJaIa97GQirUTrdgG8M6B }}
+        message: "test"
