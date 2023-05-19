@@ -1,5 +1,8 @@
 name: daily_report
-on: [push]
+on: 
+  push:
+    branches:
+      -main
 jobs:
   notify_line:
     runs-on: ubuntu-latest
