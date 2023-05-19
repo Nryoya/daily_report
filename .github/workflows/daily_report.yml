@@ -16,6 +16,9 @@ jobs:
       with:
         path: ./README.md
 
+    - name: echo
+      run: echo "${{ steps.file.outputs.content }}"
+
     - name: send LINE Notify
       env: 
         LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
