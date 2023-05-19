@@ -10,7 +10,7 @@ jobs:
         URL: https://notify-api.line.me/api/notify
       uses: juliangruber/read-file-action@v1
       with:
-        path: ../../../README.md
+        path: ../../README.md
         run: |
           curl -X POST -H "Authorization: Bearer ${LINE_TOKEN}" -F "message = ${{ steps.package.outputs.content }}" \
           ${URL}
