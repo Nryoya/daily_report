@@ -15,10 +15,9 @@ jobs:
         LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
         URL: https://notify-api.line.me/api/notify
       run: |
-        curl -X POST \
-            -H "Authorization: Bearer ${LINE_TOKEN}" \
-            ${URL}
-            {
-              "status": 200,
-              "message": contents
-              }
+        curl -X POST -H "Authorization: Bearer ${LINE_TOKEN}" \
+        ${URL}
+        {
+          "status": 200,
+          "message": "test"
+          }
