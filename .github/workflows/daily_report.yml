@@ -4,6 +4,9 @@ jobs:
   notify_line:
     runs-on: ubuntu-latest
     steps:
+    - name: checkout
+      uses: actions/chechout@v3
+
     - name: input_file
       uses: juliangruber/read-file-action@v1
       with:
