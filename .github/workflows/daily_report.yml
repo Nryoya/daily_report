@@ -6,7 +6,8 @@ jobs:
     steps:
     - name: push
       env: 
-          TITLE: "test"
+          TITLE: ${{ github.event.commits.massage }}
+          
       run: echo "complete push"
       
     - name: send LINE Notify
