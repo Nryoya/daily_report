@@ -4,13 +4,16 @@ jobs:
   notify_line:
     runs-on: ubuntu-latest
     steps:
+    - name: input_file
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: ./README.md
+
     - name: send LINE Notify
       env: 
         LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
         URL: https://notify-api.line.me/api/notify
-      uses: juliangruber/read-file-action@v1
-      with:
-        path: ./README.md
-        run: |
-          curl -X POST -H "Authorization: Bearer ${LINE_TOKEN}" -F "message = ${{ steps.package.outputs.content }}" \
-          ${URL}
+      run: |
+        curl -X POST -H 'Authorization: Bearer {$LINE_TOKEN}' -F 'message=${{ steps.package.outputs.content }}' \
+        ${URL}
+      
