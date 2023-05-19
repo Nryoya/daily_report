@@ -18,4 +18,3 @@ jobs:
         curl -X POST \
             -H "Authorization: Bearer ${LINE_TOKEN}" \
             --data-urlencode message@contents \
-            ${URL}
