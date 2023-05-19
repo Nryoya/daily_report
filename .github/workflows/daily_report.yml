@@ -7,10 +7,11 @@ jobs:
   notify_line:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout
-      uses: actions/chechout@v2
+    - name: Checkout repository
+      uses: actions/chechout@v3
 
     - name: input_file
+      id: file
       uses: juliangruber/read-file-action@v1
       with:
         path: ./README.md
@@ -20,6 +21,6 @@ jobs:
         LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
         URL: https://notify-api.line.me/api/notify
       run: |
-        curl -X POST -H 'Authorization: Bearer {$LINE_TOKEN}' -F 'message=${{ steps.package.outputs.content }}' \
+        curl -X POST -H 'Authorization: Bearer {$LINE_TOKEN}' -F 'message=${{ steps.file.outputs.content }}' \
         ${URL}
       
