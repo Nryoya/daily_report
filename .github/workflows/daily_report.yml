@@ -4,20 +4,18 @@ jobs:
   notify_line:
     runs-on: ubuntu-latest
     steps:
-    - name: push
-      env: 
-          TITLE: ${{ github.event.commits.massage }}
-          
-      run: echo -ne "${TITLE}\n" > contens
-      
+    - name: get repository
+      uses: sctions/checkout@v2
+
     - name: send LINE Notify
       env: 
         LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
         URL: https://notify-api.line.me/api/notify
       run: |
-        curl -X POST -H "Authorization: Bearer ${LINE_TOKEN}" \
+        curl -X POST -H "Authorization: Bearer ${LINE_TOKEN}" 
+        -F "message = test" \
         ${URL}
         {
           "status": 200,
-          "message": "test"
-          }
+          "message": "ok"
+        }
