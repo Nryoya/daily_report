@@ -7,14 +7,11 @@ jobs:
   notify_line:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/chechout@v3
-
     - name: input_file
       id: file
       uses: juliangruber/read-file-action@v1
       with:
-        path: ./README.md
+        path: './README.md'
 
     - name: echo
       run: echo "${{ steps.file.outputs.content }}"
