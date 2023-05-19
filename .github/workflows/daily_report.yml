@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
-      uses: actions/chechout@v3
+      uses: actions/chechout@v2
 
     - name: input_file
       uses: juliangruber/read-file-action@v1
