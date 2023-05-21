@@ -9,7 +9,7 @@ jobs:
       id: file
       uses: juliangruber/read-file-action@v1
       with:
-        path: ../../../README.md
+        path: README.md
 
     - name: echo
       run: echo "${{ steps.file.outputs.content }}"
