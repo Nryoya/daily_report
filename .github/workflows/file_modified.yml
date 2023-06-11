@@ -17,19 +17,6 @@ jobs:
     - name: echo
       run: echo "modified_file:${{ steps.changed-files.outputs.modified_files }}"
 
-    - name: input file modified
-      if: steps.changed-files.outputs.modified_files != ''
-      id: file
-      uses: juliangruber/read-file-action@v1
-      with:
-        path: ./${{ steps.changed-files.outputs.modified_files }}
-
-    - name: replacement
-      id: replace
-      run: | 
-        sed -i 's/[ -/:-@[-`{-~]//g' ./${{ steps.changed-files.outputs.modified_files }}
-        cat ./${{ steps.changed-files.outputs.modified_files }}
-
     - name: send LINE Notify
       if: steps.changed-files.outputs.modified_files != ''
       env: 

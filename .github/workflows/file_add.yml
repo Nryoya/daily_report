@@ -16,25 +16,14 @@ jobs:
       
     - name: echo
       run: echo "add_file:${{ steps.changed-files.outputs.added_files }}"
-
-    - name: input file add
-      if: steps.changed-files.outputs.added_files != ''
-      id: file
-      uses: juliangruber/read-file-action@v1
-      with:
-        path: ./${{ steps.changed-files.outputs.added_files }}
-
-    - name: replacement
-      id: replace
-      run: | 
-        sed -i 's/[ -/:-@[-`{-~]//g' ./${{ steps.changed-files.outputs.added_files }}
-        cat ./${{ steps.changed-files.outputs.added_files }}
         
     - name: send LINE Notify
       if: steps.changed-files.outputs.added_files != ''
       env: 
         URL: https://notify-api.line.me/api/notify
       run: |
-        curl -X POST -H 'Authorization: Bearer ${{secrets.LINE_TOKEN }}' -F 'message=${{ steps.file.outputs.content }}' \
+        sed -i 's/[ -/:-@[-`{-~]//g' ./${{ steps.changed-files.outputs.added_files }}
+        val=$(cat ./${{ steps.changed-files.outputs.added_files }})
+        curl -X POST -H 'Authorization: Bearer ${{secrets.LINE_TOKEN }}' -F "message=$val"\
         ${URL}
       
