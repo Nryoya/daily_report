@@ -21,7 +21,7 @@ jobs:
       id: file
       uses: juliangruber/read-file-action@v1
       with:
-        path: ./${{ steps.changed-files.outputs.modified_files }}
+        path: ./${{ steps.changed-files.outputs.modified_files }} || ./${{ steps.changed-files.outputs.added_files }}
 
     - name: echo
       run: echo "${{ steps.file.outputs.content }}"
