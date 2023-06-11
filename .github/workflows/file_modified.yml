@@ -28,7 +28,7 @@ jobs:
       id: replace
       run: | 
         sed -i 's/[ -/:-@[-`{-~]//g' ./${{ steps.changed-files.outputs.modified_files }}
-        echo ${{ steps.file.outputs.content }}
+        cat ./${{ steps.changed-files.outputs.modified_files }}
 
     - name: send LINE Notify
       if: steps.changed-files.outputs.modified_files != ''
