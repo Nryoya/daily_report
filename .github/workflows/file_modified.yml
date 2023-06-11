@@ -35,6 +35,6 @@ jobs:
       env: 
         URL: https://notify-api.line.me/api/notify
       run: |
-        curl -X POST -H 'Authorization: Bearer ${{secrets.LINE_TOKEN }}' -F 'message=${{ steps.replace }}' \
+        curl -X POST -H 'Authorization: Bearer ${{secrets.LINE_TOKEN }}' -F 'message=' cat ./${{ steps.changed-files.outputs.modified_files }} \
         ${URL}
       
