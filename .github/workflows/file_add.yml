@@ -15,7 +15,7 @@ jobs:
       uses: tj-actions/changed-files@v36
       
     - name: echo
-      run: echo ${{ steps.changed-files.outputs.added_files }}
+      run: echo "add_file:${{ steps.changed-files.outputs.added_files }}""
 
     - name: input file add
       if: steps.changed-files.outputs.added_files != ''

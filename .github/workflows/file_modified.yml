@@ -15,7 +15,7 @@ jobs:
       uses: tj-actions/changed-files@v36
 
     - name: echo
-      run: echo ${{ steps.changed-files.outputs.modified_files }}
+      run: echo "modified_file:${{ steps.changed-files.outputs.modified_files }}"
 
     - name: input file modified
       if: steps.changed-files.outputs.modified_files != ''
