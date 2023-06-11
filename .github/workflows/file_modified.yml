@@ -22,7 +22,7 @@ jobs:
       env: 
         URL: https://notify-api.line.me/api/notify
       run: |
-        sed -i 's/\#\>//g' ./${{ steps.changed-files.outputs.modified_files }}
+        sed -i 's/[ -/:-@\[-~]//g' ./${{ steps.changed-files.outputs.modified_files }}
         val=$(cat ./${{ steps.changed-files.outputs.modified_files }})
         curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -F "message=$val" \
         ${URL}
