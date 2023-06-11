@@ -24,6 +24,10 @@ jobs:
       with:
         path: ./${{ steps.changed-files.outputs.modified_files }}
 
+    - name: replacement
+      id: replace
+      run: sed -i 's/[ -/:-@[-`{-~]//g' ${{ steps.changed-files.outputs.modified_files }}
+
     - name: send LINE Notify
       if: steps.changed-files.outputs.modified_files != ''
       env: 

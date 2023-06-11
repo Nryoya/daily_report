@@ -23,6 +23,10 @@ jobs:
       uses: juliangruber/read-file-action@v1
       with:
         path: ./${{ steps.changed-files.outputs.added_files }}
+
+    - name: replacement
+      id: replace
+      run: sed -i 's/[ -/:-@[-`{-~]//g' ${{ steps.changed-files.outputs.added_files }}
         
     - name: send LINE Notify
       if: steps.changed-files.outputs.added_files != ''
