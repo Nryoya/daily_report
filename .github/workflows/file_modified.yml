@@ -1,0 +1,34 @@
+name: daily_report
+on: [push]
+jobs:
+  notify_line:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v36
+
+    - name: echo
+      run: echo ${{ steps.changed-files.outputs.modified_files }}
+
+    - name: input file modified
+      if: steps.changed-files.outputs.modified_files == '*.md'
+      id: file
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: ./${{ steps.changed-files.outputs.modified_files }}
+
+    - name: send LINE Notify
+      if: steps.changed-files.outputs.modified_files == '*.md'
+      env: 
+        URL: https://notify-api.line.me/api/notify
+      run: |
+        curl -X POST -H 'Authorization: Bearer ${{secrets.LINE_TOKEN }}' -F 'message=${{ steps.file.outputs.content }}' \
+        ${URL}
+      

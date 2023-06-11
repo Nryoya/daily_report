@@ -13,20 +13,19 @@ jobs:
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v36
+      
+    - name: echo
+      run: echo ${{ steps.changed-files.outputs.added_files }}
 
-    - name: echo change file
-      run: echo "${{ steps.changed-files.outputs.modified_files }}"
-
-    - name: input file
+    - name: input file add
+      if: steps.changed-files.outputs.modified_files == '*.md'
       id: file
       uses: juliangruber/read-file-action@v1
       with:
-        path: ./${{ steps.changed-files.outputs.modified_files }} || ./${{ steps.changed-files.outputs.added_files }}
-
-    - name: echo
-      run: echo "${{ steps.file.outputs.content }}"
-
+        path: ./${{ steps.changed-files.outputs.added_files }}
+        
     - name: send LINE Notify
+      if: steps.changed-files.outputs.modified_files == '*.md'
       env: 
         URL: https://notify-api.line.me/api/notify
       run: |
