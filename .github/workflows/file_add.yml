@@ -18,14 +18,14 @@ jobs:
       run: echo ${{ steps.changed-files.outputs.added_files }}
 
     - name: input file add
-      if: steps.changed-files.outputs.modified_files != ''
+      if: steps.changed-files.outputs.added_files != ''
       id: file
       uses: juliangruber/read-file-action@v1
       with:
         path: ./${{ steps.changed-files.outputs.added_files }}
         
     - name: send LINE Notify
-      if: steps.changed-files.outputs.modified_files != ''
+      if: steps.changed-files.outputs.added_files != ''
       env: 
         URL: https://notify-api.line.me/api/notify
       run: |
