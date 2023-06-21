@@ -19,11 +19,9 @@ jobs:
         
     - name: send LINE Notify
       if: endsWith(steps.changed-files.outputs.added_files, 'md')
-      env: 
-        URL: https://notify-api.line.me/api/notify
       run: |
         sed -i 's/[\#\>]//g' ./${{ steps.changed-files.outputs.added_files }}
         val=$(cat ./${{ steps.changed-files.outputs.added_files }})
         curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -w "\n" -F "message=$val"\
-        ${URL}
+        ${{ secrets.LINE_URL }}
       
