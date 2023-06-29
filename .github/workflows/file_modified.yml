@@ -1,0 +1,27 @@
+name: daily_report
+on: [push]
+jobs:
+  notify_line:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v36
+
+    - name: echo
+      run: echo "modified_file:${{ steps.changed-files.outputs.modified_files }}"
+
+    - name: send LINE Notify
+      if: endsWith(steps.changed-files.outputs.modified_files, 'md')
+      run: |
+        sed -i 's/[\#\>]//g' ./${{ steps.changed-files.outputs.modified_files }}
+        val=$(cat ./${{ steps.changed-files.outputs.modified_files }})
+        curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -w "\n" -F "message=$val" \
+        ${{ secrets.LINE_URL }}
+      
