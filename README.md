@@ -1,28 +1,31 @@
-# 使用方法  
-1. リポジトリのクローン  
+# 使用方法 
+## 管理者  
+1. このリポジトリに研修生のGitHubアカウントを招待する  
+## 研修生  
+1. リモートリポジトリをローカルリポジトリにクローン  
     ```zsh  
     // リポジトリのクローン  
-    git clone $url  
+    1-1. git clone $url  
 
     // ブランチの作成(アッパーキャメルケース)  
-    git switch -c $MyName  
+    1-2. git switch -c $MyName  
 
     // READMEファイルの名前変更  
-    mv README.md $MyName.md
+    1-3. mv README.md $MyName.md
     ```  
-1. 日報用テンプレートを使用し日報を記入  
-1. 自身のブランチにpush
+1. **日報用テンプレート**(下記に記載あり)を使用し日報を記入  
+1. 自身のローカルリポジトリからリモートリポジトリにpush
     ```zsh  
     // ステージング
-    git add $MyName.md
+    3-1. git add $MyName.md
 
     // コミット
-    git commit -m '日報：$MyName'
+    3-2. git commit -m '日報：$MyName'
 
     //プッシュ
-    git push origin $branch
+    3-3. git push origin $branch(1-2で作成したブランチ)
     ```
-1. リモートリポジトリで自身のブランチからfor-mergeブランチへpull request  
+1. リモートリポジトリで自身のブランチからmergeブランチへpullrequest  
 1. merge  
 # 注意事項
 - ## .githubディレクトリは変更しないでください。  
