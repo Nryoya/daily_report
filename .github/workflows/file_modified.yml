@@ -17,7 +17,11 @@ jobs:
     - name: List all added files
       run: |
         for file in ${{ steps.changed-files.outputs.modified_files }}; do
-          echo "$file was modified"
+          if [ $file = *.md ]; then
+            echo $file
+          else
+            echo ".mdではない"
+          fi
         done
 
     - name: send LINE Notify
