@@ -25,7 +25,7 @@
     //プッシュ
     3-3. git push origin $branch(1-2で作成したブランチ)
     ```
-1. リモートリポジトリで自身のブランチからmergeブランチへpullrequest  
+1. リモートリポジトリで自身のブランチからmergeブランチへpull request  
 1. merge  
 ## 注意事項
 - ### .githubディレクトリは変更しないでください。  
