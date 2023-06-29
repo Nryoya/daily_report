@@ -14,14 +14,21 @@ jobs:
       id: changed-files
       uses: tj-actions/changed-files@v36
       
-    - name: echo
-      run: echo "add_file:${{ steps.changed-files.outputs.added_files }}"
+    - name: List all added files
+      run: |
+        for file in ${{ steps.changed-files.outputs.added_files }}; do
+          echo $file
+        done
         
     - name: send LINE Notify
-      if: endsWith(steps.changed-files.outputs.added_files, 'md') && !startsWith(steps.changed-files.outputs.added_files, 'README')
+      if: endsWith(steps.changed-files.outputs.added_files, 'md')
       run: |
-        sed -i 's/[\#\>]//g' ./${{ steps.changed-files.outputs.added_files }}
-        val=$(cat ./${{ steps.changed-files.outputs.added_files }})
-        curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -F "message=$val"\
-        ${{ secrets.LINE_URL }}
+        for file in ${{ steps.changed-files.outputs.added_files }}; do
+          if [ $file != README.md ]; then
+            sed -i 's/[\#\>]//g' ./${{ steps.changed-files.outputs.added_files }}
+            val=$(cat ./${{ steps.changed-files.outputs.added_files }})
+            curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -F "message=$val"\
+            ${{ secrets.LINE_URL }}
+          fi
+        done
       
