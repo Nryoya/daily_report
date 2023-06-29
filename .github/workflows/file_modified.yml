@@ -17,18 +17,17 @@ jobs:
     - name: List all added files
       run: |
         for file in ${{ steps.changed-files.outputs.modified_files }}; do
-          if [ $file = *.md ] && [! $file = README.md ]; then
-            echo $file
-          else
-            echo ".mdではない"
-          fi
+          echo $file
         done
 
     - name: send LINE Notify
-      if: ${{ !startsWith(steps.changed-files.outputs.modified_files, 'README') }}
+      if: endsWith(steps.changed-files.outputs.modified_files, 'md')
       run: |
-        sed -i 's/[\#\>]//g' ./${{ steps.changed-files.outputs.modified_files }}
-        val=$(cat ./${{ steps.changed-files.outputs.modified_files }})
-        curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -F "message=$val" \
-        ${{ secrets.LINE_URL }}
-      
+        for file in ${{ steps.changed-files.outputs.added_files }}; do
+          if [ $file != README.md ]; then
+            sed -i 's/[\#\>]//g' ./${{ steps.changed-files.outputs.modified_files }}
+            val=$(cat ./${{ steps.changed-files.outputs.modified_files }})
+            curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -F "message=$val" \
+            ${{ secrets.LINE_URL }}
+          fi
+        done
