@@ -18,10 +18,10 @@ jobs:
       run: echo "add_file:${{ steps.changed-files.outputs.added_files }}"
         
     - name: send LINE Notify
-      if: endsWith(steps.changed-files.outputs.added_files, 'md')
+      if: endsWith(steps.changed-files.outputs.added_files, 'md') && !startsWith(steps.changed-files.outputs.added_files, 'README')
       run: |
         sed -i 's/[\#\>]//g' ./${{ steps.changed-files.outputs.added_files }}
         val=$(cat ./${{ steps.changed-files.outputs.added_files }})
-        curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -w "\n" -F "message=$val"\
+        curl -X POST -H 'Authorization: Bearer ${{ secrets.LINE_TOKEN }}' -F "message=$val"\
         ${{ secrets.LINE_URL }}
       
