@@ -18,7 +18,7 @@ jobs:
       run: echo "add_file:${{ steps.changed-files.outputs.added_files }}"
         
     - name: send LINE Notify
-      if: endsWith(steps.changed-files.outputs.added_files, 'md')
+      if: endsWith(steps.changed-files.outputs.added_files, 'md') && !startsWith(steps.changed-files.outputs.added_files, 'README')
       run: |
         sed -i 's/[\#\>]//g' ./${{ steps.changed-files.outputs.added_files }}
         val=$(cat ./${{ steps.changed-files.outputs.added_files }})
