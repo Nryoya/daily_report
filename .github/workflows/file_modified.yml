@@ -17,7 +17,7 @@ jobs:
     - name: List all added files
       run: |
         for file in ${{ steps.changed-files.outputs.modified_files }}; do
-          if [ $file = *.md -a $file != README.md ]; then
+          if [ $file = *.md ] && [! $file = README.md ]; then
             echo $file
           else
             echo ".mdではない"
